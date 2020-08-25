@@ -1,0 +1,32 @@
+  /* .cards {
+    float: left;
+    padding: 10px;
+    margin: 2rem;
+  } 
+  
+  .card:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .wrapper {
+      display: flex;
+      flex-flow: row wrap;
+      margin-left: 3rem;
+  } */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 30px;
+  }
+
+  .cards {
+    max-width: 1200px;
+    margin: 0 auto 15rem;
+  }
+
+  .box {
+      display:flex;
+      justify-content: center;
+  }

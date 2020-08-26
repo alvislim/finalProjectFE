@@ -26,7 +26,11 @@
     margin: 0 auto 15rem;
   }
 
-  .box {
+  .box, .buttonWrap {
       display:flex;
       justify-content: center;
+  }
+  
+  .pagination>li>a, .pagination>li>span {
+    background-color: 'black';
   }

@@ -39,6 +39,16 @@ const api = {
         } catch (err) {
             throw err;
         }
+    },
+    getById: async (id) => {
+        try {
+            console.log(id)
+            const response = await axios.post(`${url}/getbyid`, id)
+            console.log(response)
+            return response
+        } catch (err) {
+            throw err;
+        }
     }
 }
 

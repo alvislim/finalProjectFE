@@ -1,11 +1,10 @@
 import React               from 'react';
 import { Card }            from 'react-bootstrap';
-import styles              from './styles.module.css'
 
 function Footer() {
     return (
-        <div className='fixed-bottom'>
-            <Card className="card bg-dark text-white pt-3 mt-5 rounded-0 sticky-bottom">
+
+            <Card className="card bg-dark text-white pt-3 rounded-0 sticky-bottom">
                 <Card.Body>
                     <Card.Title>Card title</Card.Title>
                     <Card.Text>
@@ -15,7 +14,7 @@ function Footer() {
                     <Card.Text>Last updated 3 mins ago</Card.Text>
                 </Card.Body>
             </Card>
-        </div>
+ 
     )
 }
 

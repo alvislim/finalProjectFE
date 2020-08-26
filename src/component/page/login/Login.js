@@ -60,7 +60,10 @@ function Login() {
         </Card>
       </Container>
 
-      <Footer/>
+
+        <Footer/>
+
+      
     </div>
   )
 }

@@ -3,3 +3,14 @@
     justify-content: center;
     margin: 2rem;
 }
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 30px;
+  }
+
+  .cards {
+    max-width: 1200px;
+    margin: 0 auto 15rem;
+  }

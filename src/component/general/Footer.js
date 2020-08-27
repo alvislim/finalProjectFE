@@ -1,6 +1,5 @@
 import React               from 'react';
-import { Card }            from 'react-bootstrap';
-import styles from './styles.module.css'
+import styles              from './styles.module.css';
 
 function Footer() {
     return (

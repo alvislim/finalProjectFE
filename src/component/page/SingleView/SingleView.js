@@ -7,6 +7,8 @@ import paginationFactory                  from 'react-bootstrap-table2-paginator
 import LoadingScreen                      from '../../general/LoadingScreen';
 import Footer                             from '../../general/Footer';
 import NavigationBar                      from '../../general/Navbar';
+import ToolkitProvider, { Search }        from 'react-bootstrap-table2-toolkit';
+
 
 function SingleView(props) {
 
@@ -45,15 +47,17 @@ function SingleView(props) {
        {dataField: 'prodPrice', text: 'Item Price', sort: true }
     ]
 
+    const { SearchBar } = Search;
+
     return (
         <React.Fragment>
-            <NavigationBar/>
+            <NavigationBar loginFlag={loginFlag}/>
                 {isLoading ?
-                    <Container className='mt-5' style={{height:'100%'}}>
+                    <Container className='mt-5' style={{height:'100vh'}}>
                         <LoadingScreen />
                     </Container> 
                     :
-                    <Container style={{height:'100vh'}}>
+                    <Container style={{height:'100%'}}>
                         <div className='d-flex justify-content-center mt-5 mb-3'>
                             <Card style={{ width: '18rem' }}>
                             <Card.Img variant="top" src={userItem.img} style={{width: '100%', height: '268px'}}/>
@@ -76,14 +80,25 @@ function SingleView(props) {
                     <div>
                         <h6>Below data is fetched from Sheng Shiong with the key word '{userItem.name}'</h6>
                         <span><h6>Alternatively, you can visit Sheng Shiong <a href='https://www.allforyou.sg/'>here</a></h6></span>
+                    <ToolkitProvider
+                        keyField='name'
+                        data={relevantItems}
+                        columns={columns}  
+                        search
+                    >
+                        {
+                            props => (
+                        <div styles={{height: '100%'}} className='mb-5'>
+                            <SearchBar { ...props.searchProps } placeholder='Search the products fetched from Sheng Shiong' />
                             <BootstrapTable
-                                bootstrap4
-                                keyField='name'
-                                data={relevantItems}
-                                columns={columns} 
+                                { ...props.baseProps }
                                 pagination={paginationFactory()}
-                                button='black'
+                                bootstrap4
                             />
+                        </div>
+                            )
+                        }
+                        </ToolkitProvider>
                     </div>
                 }   
                    

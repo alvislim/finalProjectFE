@@ -11,8 +11,9 @@ import SuccessAlert                       from '../../general/SuccessAlert';
 import Footer                             from '../../general/Footer';
 import NavigationBar                      from '../../general/Navbar';
 import LoadingScreen                      from '../../general/LoadingScreen';
-import ItemCard                           from '../../general/ItemCard';
+import Cards                              from '../../general/Cards';
 import styles                             from './styles.module.css';
+import Fuse                               from 'fuse.js';
 
 
 function Dashboard() {
@@ -21,9 +22,10 @@ function Dashboard() {
   const [successPost, setSuccessPost] = useState('');
   const [errorPost, seterrorPost] = useState('');
   const [show, setShow] = useState(false);
-  const [ userItem, setUserItem] = useState([]);
+  const [userItem, setUserItem] = useState([]);
   const [loginFlag, setLoginFlag] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [query, setQuery] = useState('');
 
   let history = useHistory();
 
@@ -91,52 +93,93 @@ function Dashboard() {
     history.push(`/${id}`)
   }
 
+  const fuse = new Fuse(userItem, {
+    keys: [
+      'name',
+      'price',
+      'desiredPrice'
+    ]
+  })
+
+  const results = fuse.search(query)
+  const searchResults = query ? results.map(result => result.item) : userItem
+
+  function handleOnSearch(e) {
+    const { value } = e.currentTarget
+    setQuery(value)
+  }
+
   return (
     <div>
       <NavigationBar loginFlag={loginFlag} />
-      <div style={{height:'100vh'}}>
-      {successPost !== '' && <SuccessAlert success={successPost} />}
-      {errorPost !== '' && <WarningAlert success={errorPost} />}
-      <div className={styles.box}>
-        <Button variant="dark" className='mx-auto' onClick={handleClick}>
-          {show ? 'hide' : 'Add products to track'}
-        </Button>
-      </div>
+        <div style={{height:'100%'}}>
+
+        <form>
+          <label>search</label>
+          <input type='text' value={query} onChange={handleOnSearch} />
+        </form>
+
+          {successPost !== '' && <SuccessAlert success={successPost} />}
+          {errorPost !== '' && <WarningAlert success={errorPost} />}
+          <div className={styles.box}>
+            <Button variant="dark" className='mx-auto' onClick={handleClick}>
+              {show ? 'hide' : 'Add products to track'}
+            </Button>
+          </div>
       {isLoading ?
+      <div style={{height:'100vh'}}>
         <LoadingScreen/>
+      </div>
       :
       <div>
-      <Container className='mt-2 mb-5 text-center' style={{ display: show ? '' : 'none' }}>
-      <Card body>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <h2> Cold Storage Exclusive Price checker </h2>
-          <Form.Group className='mt-4'>
-            <Form.Label>Name Of Product</Form.Label>
-            <Form.Control input type='text' name='name' ref={register({ required: 'Field is required' })} />
-          </Form.Group>
-          {errors.name && <WarningAlert errors={errors.name.message} />}
+        <Container className='mt-2 mb-5 text-center' style={{ display: show ? '' : 'none' }}>
+        <Card body>
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <h2> Cold Storage Exclusive Price checker </h2>
+            <Form.Group className='mt-4'>
+              <Form.Label>Name Of Product</Form.Label>
+              <Form.Control input type='text' name='name' ref={register({ required: 'Field is required' })} />
+            </Form.Group>
+            {errors.name && <WarningAlert errors={errors.name.message} />}
 
-          <Form.Group>
-            <Form.Label>URL </Form.Label>
-            <Form.Control input type='text' name='url' ref={register({ required: 'Field is required' })} />
-          </Form.Group>
-          {errors.url && <WarningAlert errors={errors.url.message} />}
+            <Form.Group>
+              <Form.Label>URL </Form.Label>
+              <Form.Control input type='text' name='url' ref={register({ required: 'Field is required' })} />
+            </Form.Group>
+            {errors.url && <WarningAlert errors={errors.url.message} />}
 
-          <Form.Group>
-            <Form.Label>Price </Form.Label>
-            <Form.Control input type='number'
-              name='price'
-              ref={register({ required: 'Field is required', min: { value: 1, message: 'Price should be more than 0' } })}
-            />
-          </Form.Group>
-          {errors.price && <WarningAlert errors={errors.price.message} />}
+            <Form.Group>
+              <Form.Label>Price </Form.Label>
+              <Form.Control input type='number'
+                name='price'
+                ref={register({ required: 'Field is required', min: { value: 1, message: 'Price should be more than 0' } })}
+              />
+            </Form.Group>
+            {errors.price && <WarningAlert errors={errors.price.message} />}
 
-          <Button input type='submit' variant="dark">Submit</Button>
-        </Form>
-      </Card>
-    </Container>
+            <Button input type='submit' variant="dark">Submit</Button>
+          </Form>
+        </Card>
+      </Container>
       
-      <ItemCard userItem={userItem} handleDelete={handleDelete} handleNavigate={handleNavigate}/>
+        <div>
+            {userItem!==[] && 
+            <div className={styles.cards}>
+            {searchResults.map((items,i) => {
+                if(items.desiredPrice <= items.price) {
+                    return (
+                        <Cards payload={items} key={i} handleDelete={handleDelete} handleNavigate={handleNavigate} priceMet={true} />
+                    )
+                } else {
+                    return (
+                        <Cards payload={items} key={i} handleDelete={handleDelete} handleNavigate={handleNavigate} />
+                    )
+                }
+
+            })}
+            </div>
+            }
+        </div>
     </div>
     }
     </div>

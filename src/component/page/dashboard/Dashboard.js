@@ -94,7 +94,7 @@ function Dashboard() {
   return (
     <div>
       <NavigationBar loginFlag={loginFlag} />
-      
+      <div style={{height:'100vh'}}>
       {successPost !== '' && <SuccessAlert success={successPost} />}
       {errorPost !== '' && <WarningAlert success={errorPost} />}
       <div className={styles.box}>
@@ -139,7 +139,7 @@ function Dashboard() {
       <ItemCard userItem={userItem} handleDelete={handleDelete} handleNavigate={handleNavigate}/>
     </div>
     }
-
+    </div>
       <Footer />
     </div>
   )

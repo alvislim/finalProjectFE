@@ -35,7 +35,7 @@ function Login() {
     <div>
       <NavigationBar />
       
-      <Container className='mt-5 text-center'>
+      <Container className='mt-5 text-center mb-5' style={{width:'50%', height:'100vh'}}>
         <Card body className={styles.card}>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <h1><PersonCheckFill size={60} /> LOGIN</h1>

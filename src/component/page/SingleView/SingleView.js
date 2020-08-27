@@ -49,14 +49,16 @@ function SingleView(props) {
         <React.Fragment>
             <NavigationBar/>
                 {isLoading ?
-                    <Container className='mt-5'>
+                    <Container className='mt-5' style={{height:'100%'}}>
                         <LoadingScreen />
                     </Container> 
                     :
-                    <Container>
-                        <Container className='mt-5 mb-2'>
+                    <Container style={{height:'100vh'}}>
+                        <div className='d-flex justify-content-center mt-5 mb-3'>
                             <Card style={{ width: '18rem' }}>
-                            <Card.Img variant="top" src={userItem.img} style={{width: '268px', height: '268px'}}/>
+                            <Card.Img variant="top" src={userItem.img} style={{width: '100%', height: '268px'}}/>
+                            </Card>
+                            <Card>
                             <ListGroup className="list-group-flush">
                             <ListGroupItem>
                             <h6>Product Name:</h6>{userItem.name}
@@ -65,19 +67,31 @@ function SingleView(props) {
                                 <ListGroupItem><h6>Product Current Price:</h6> ${userItem.desiredPrice}</ListGroupItem>
                             </ListGroup>
                             </Card>
-                        </Container>
-                    <h6>Below data is fetched from Sheng Shiong with the key word '{userItem.name}'</h6>
-                    <BootstrapTable
-                        bootstrap4
-                        keyField='name'
-                        data={relevantItems}
-                        columns={columns} 
-                        pagination={paginationFactory()}
-                        button='black'
-                    />
+                        </div>
+                {relevantItems.length == 0 ?
+                <Container className='text-center mt-5'>
+                    <Card.Subtitle>We are unable to retrieve any results from <Card.Title>'{userItem.name}'</Card.Title></Card.Subtitle>
+                </Container>
+                    :
+                    <div>
+                        <h6>Below data is fetched from Sheng Shiong with the key word '{userItem.name}'</h6>
+                        <span><h6>Alternatively, you can visit Sheng Shiong <a href='https://www.allforyou.sg/'>here</a></h6></span>
+                            <BootstrapTable
+                                bootstrap4
+                                keyField='name'
+                                data={relevantItems}
+                                columns={columns} 
+                                pagination={paginationFactory()}
+                                button='black'
+                            />
+                    </div>
+                }   
+                   
                 </Container>
                 }
+          
                 <Footer />
+       
         </React.Fragment>
     )
 }

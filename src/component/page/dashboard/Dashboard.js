@@ -77,9 +77,13 @@ function Dashboard() {
         setUserItem(getItemData.data.payload)
         setIsLoading(false)
         setSuccessPost(response.data.message)
-      } else seterrorPost('We aplogized, we are currently having some issues with our server')
+      } else {
+        setIsLoading(false)
+        seterrorPost('We aplogized, we are currently having some issues with our server')
+      }
     } catch (err) {
       console.log(err)
+      setIsLoading(false)
       seterrorPost('We aplogized, we are currently having some issues with our server')
     }
   };
@@ -110,27 +114,33 @@ function Dashboard() {
   }
 
   return (
-    <div>
+    <div style={{height:'100vh'}}>
       <NavigationBar loginFlag={loginFlag} />
         <div style={{height:'100%'}}>
 
-        <form>
-          <label>search</label>
-          <input type='text' value={query} onChange={handleOnSearch} />
-        </form>
+      <div className='d-flex justify-content-center mt-5 mb-3'>
+        <Form>
+          <Form.Control input type='text' value={query} onChange={handleOnSearch} placeholder='Enter keyword to search'/>
+        </Form>
+      </div>
 
           {successPost !== '' && <SuccessAlert success={successPost} />}
-          {errorPost !== '' && <WarningAlert success={errorPost} />}
+          {errorPost !== '' && <WarningAlert errors={errorPost} />}
+
           <div className={styles.box}>
             <Button variant="dark" className='mx-auto' onClick={handleClick}>
               {show ? 'hide' : 'Add products to track'}
             </Button>
           </div>
+
       {isLoading ?
+
       <div style={{height:'100vh'}}>
         <LoadingScreen/>
       </div>
+
       :
+
       <div>
         <Container className='mt-2 mb-5 text-center' style={{ display: show ? '' : 'none' }}>
         <Card body>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect }     from 'react';
 import api                                from '../../../api'
 import { useHistory }                     from "react-router-dom";
-import { Container, Card, ListGroup, ListGroupItem }                      from 'react-bootstrap';
+import { Container, Card, ListGroup, ListGroupItem }   from 'react-bootstrap';
 import BootstrapTable                     from 'react-bootstrap-table-next';
 import paginationFactory                  from 'react-bootstrap-table2-paginator';
 import LoadingScreen                      from '../../general/LoadingScreen';
@@ -43,8 +43,8 @@ function SingleView(props) {
     }, [])
 
     const columns = [
-       {dataField: 'prodName', text: 'Item Name', sort: true },
-       {dataField: 'prodPrice', text: 'Item Price', sort: true }
+       { dataField: 'prodName', text: 'Item Name', sort: true },
+       { dataField: 'prodPrice', text: 'Item Price', sort: true }
     ]
 
     const { SearchBar } = Search;

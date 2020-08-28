@@ -1,13 +1,15 @@
-import React, { useState, useEffect }     from 'react';
-import api                                from '../../../api'
-import { useHistory }                     from "react-router-dom";
-import { Container, Card, ListGroup, ListGroupItem }   from 'react-bootstrap';
-import BootstrapTable                     from 'react-bootstrap-table-next';
-import paginationFactory                  from 'react-bootstrap-table2-paginator';
-import LoadingScreen                      from '../../general/LoadingScreen';
-import Footer                             from '../../general/Footer';
-import NavigationBar                      from '../../general/Navbar';
-import ToolkitProvider, { Search }        from 'react-bootstrap-table2-toolkit';
+import React, { useState, useEffect }                  from 'react';
+import api                                             from '../../../api'
+import { useHistory }                                  from "react-router-dom";
+import { Container, Card, ListGroup, ListGroupItem, Button }   from 'react-bootstrap';
+import BootstrapTable                                  from 'react-bootstrap-table-next';
+import paginationFactory                               from 'react-bootstrap-table2-paginator';
+import LoadingScreen                                   from '../../general/LoadingScreen';
+import Footer                                          from '../../general/Footer';
+import NavigationBar                                   from '../../general/Navbar';
+import ToolkitProvider, { Search }                     from 'react-bootstrap-table2-toolkit';
+import { Line }                                        from 'react-chartjs-2';
+import * as moment                                     from 'moment';
 
 
 function SingleView(props) {
@@ -18,9 +20,13 @@ function SingleView(props) {
     const [prodId, setProId] = useState('');
     const [userItem, setUserItem] = useState([]);
     const [relevantItems, setRelevantItems] = useState([]);
+    const [chartData, setChartData] = useState({});
+    const [show, setShow] = useState(false);
+
     let history = useHistory();
 
     useEffect(() => {
+        chart()
         const verifyUserAuthenticate = async () => {
             try {
                 let response = await api.verifyUser()
@@ -42,12 +48,42 @@ function SingleView(props) {
         verifyUserAuthenticate()
     }, [])
 
+    const handleClick = async () => {
+        setShow(!show)
+      }
+
     const columns = [
        { dataField: 'prodName', text: 'Item Name', sort: true },
        { dataField: 'prodPrice', text: 'Item Price', sort: true }
     ]
 
-    const { SearchBar } = Search;
+    const { SearchBar } = Search
+
+    const chart = async () => {
+        try {
+            let prodPrice = [];
+            let dates = [];
+            let id = { id: props.match.params.id }
+            let getItemData = await api.getById(id)
+            let dailyItemData = getItemData.data.payload.condolidatedPrice
+            dailyItemData.map(item => {
+                prodPrice.push(item.prices)
+                dates.push(moment(item.date).local().format('MMMM DD'))
+            })
+            console.log(dates)
+            setChartData({
+                labels: dates,
+                datasets: [{
+                    label: 'Daily Price',
+                    data: prodPrice,
+                    backgroundColor: ['rgba(75, 192, 192, 0.6)'],
+                    borderWidth: 4
+                }]
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     return (
         <React.Fragment>
@@ -58,6 +94,7 @@ function SingleView(props) {
                     </Container> 
                     :
                     <Container style={{height:'100%'}}>
+ 
                         <div className='d-flex justify-content-center mt-5 mb-3'>
                             <Card style={{ width: '18rem' }}>
                             <Card.Img variant="top" src={userItem.img} style={{width: '100%', height: '268px'}}/>
@@ -72,7 +109,21 @@ function SingleView(props) {
                             </ListGroup>
                             </Card>
                         </div>
+                            <Button variant="dark" className='mb-4' onClick={handleClick}>
+                                {show ? 'Show' : 'Hide'}
+                            </Button>
+                        <div style={{ display: show ? 'none' : '' }}>
+                            <div className='d-flex justify-content-center mb-5'>
+                                <Line data={chartData} options={{
+                                    response: true,
+                                    title: {text: 'Daily Price track', display: true},
+                                }}/>
+                            </div>
+                        </div>
+              
+
                 {relevantItems.length == 0 ?
+
                 <Container className='text-center mt-5'>
                     <Card.Subtitle>We are unable to retrieve any results from <Card.Title>'{userItem.name}'</Card.Title></Card.Subtitle>
                 </Container>
@@ -101,10 +152,9 @@ function SingleView(props) {
                         </ToolkitProvider>
                     </div>
                 }   
-                   
                 </Container>
-                }
-          
+                }   
+                    
                 <Footer />
        
         </React.Fragment>

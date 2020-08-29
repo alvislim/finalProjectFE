@@ -8,7 +8,7 @@ function LandingPage() {
         <React.Fragment>
             <NavigationBar />
                 <div style={{height:'100vh'}}>
-                <div>
+                <div> 
                 <Card style={{border:'none'}} className="text-white">
                     <Card.Img style={{height:'600px'}} src='https://community-assets.home-assistant.io/original/3X/d/e/dea8c60d19e758c8744437e7b91b73c10ad0e030.jpeg' />
                     <Card.ImgOverlay>
@@ -37,7 +37,8 @@ function LandingPage() {
                         </p>
                     </Card.ImgOverlay>
                 </Card>
-                <div className='text-center mt-3' style={{height:'50vh'}} id='howitwork'>
+                </div>
+                <div className='text-center mt-5 mb-5' id='howitwork'>
                         <h1>How it Works</h1>
                         <p style ={{marginLeft:'3rem', marginRight:'3rem'}}>
                             As of today, we only curated web scrapping purposes for cold storage
@@ -55,9 +56,12 @@ function LandingPage() {
                             to you :D.
                         </p>
                  </div>
+                 <Footer />
                 </div>
-                </div>
-            <Footer />
+                
+                 
+                        
+                
         </React.Fragment>
     )
 }

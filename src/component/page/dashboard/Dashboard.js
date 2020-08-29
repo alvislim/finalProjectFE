@@ -115,9 +115,8 @@ function Dashboard() {
   }
 
   return (
-    <div style={{height:'100%'}}>
+    <div style={{height:'100vh'}}>
       <NavigationBar loginFlag={loginFlag} />
-        <div style={{height:'100%'}}>
 
       <div className='d-flex justify-content-center mt-5 mb-3'>
         <Form>
@@ -198,7 +197,7 @@ function Dashboard() {
         </div>
     </div>
     }
-    </div>
+
       <Footer />
     </div>
   )

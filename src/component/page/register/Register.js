@@ -36,7 +36,7 @@ function Register() {
   return (
     <div>
       <NavigationBar />
-      <Container className='mt-5 text-center mb-5' style={{width:'50%', height:'100vh'}}>
+      <Container className='mt-5 text-center mb-5' style={{height:'100vh'}}>
         <Card body>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <h1><PersonPlusFill size={60} /> REGISTER</h1>

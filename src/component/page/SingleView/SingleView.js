@@ -50,6 +50,7 @@ function SingleView(props) {
 
     const handleClick = async () => {
         setShow(!show)
+        console.log(relevantItems.length)
       }
 
     const columns = [
@@ -86,7 +87,7 @@ function SingleView(props) {
     }
 
     return (
-        <React.Fragment>
+        <div style={{height:'100%'}}>
             <NavigationBar loginFlag={loginFlag}/>
                 {isLoading ?
                     <Container className='mt-5' style={{height:'100vh'}}>
@@ -99,7 +100,7 @@ function SingleView(props) {
                         <a href='/dashboard' style={{color:'black', textDecoration:'none'}}>Back</a>
                     </Button>
                     
-                    <Container style={{height:'100%'}}>
+                    <Container >
                         <div className='d-flex justify-content-center mt-5 mb-3'>
                             <Card style={{ width: '18rem' }}>
                             <Card.Img variant="top" src={userItem.img} style={{width: '100%', height: '268px'}}/>
@@ -127,9 +128,9 @@ function SingleView(props) {
                         </div>
               
 
-                {relevantItems.length == 0 ?
+                {relevantItems.length === 1 ?
 
-                <Container className='text-center mt-5'>
+                <Container className='text-center mt-5' style={{height:'100vh'}}>
                     <Card.Subtitle>We are unable to retrieve any results from <Card.Title>'{userItem.name}'</Card.Title></Card.Subtitle>
                 </Container>
                     :
@@ -144,7 +145,7 @@ function SingleView(props) {
                     >
                         {
                             props => (
-                        <div styles={{height: '100%'}} className='mb-5'>
+                        <div className='mb-5'>
                             <SearchBar { ...props.searchProps } placeholder='Search the products fetched from Sheng Shiong' />
                             <BootstrapTable
                                 { ...props.baseProps }
@@ -163,7 +164,7 @@ function SingleView(props) {
                     
                 <Footer />
        
-        </React.Fragment>
+        </div>
     )
 }
 

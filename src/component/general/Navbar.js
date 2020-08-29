@@ -23,21 +23,18 @@ function NavigationBar(props) {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                      
-                    <Nav className="mr-auto" style={{display: props.loginFlag !== true ? 'none' : ''}}>
-                        <Nav.Link href="/dashboard">Home</Nav.Link>
-                    </Nav>
                    
-                        {
-                        props.loginFlag !== true ? 
-                        <Nav style={{display: props.loginFlag !== true ? 'none' : ''}}>
-                            <Nav.Link href="/login">Login</Nav.Link>
-                            <Nav.Link eventKey={2} href="/register">Register</Nav.Link>
+                        <Nav className='mt-1 mx-auto'>
+                            <Nav.Link href={props.loginFlag===true ? '/dashboard' : '/'}>Home</Nav.Link>
                         </Nav>
-                        :
-                        <Nav>
+                        
+                        <Nav style={{display: props.loginFlag!==true && 'none'}}>
                             <Button variant='dark' onClick={handleLogout}>Logout</Button>
                         </Nav>
-                        }
+
+                        <Nav style={{display: props.loginFlag===true && 'none'}}>
+                            <Button variant='dark' href='/login'>Login</Button>
+                        </Nav>
                    
                 </Navbar.Collapse>
             </Navbar>

@@ -163,7 +163,7 @@ function Dashboard() {
               <Form.Label>Price </Form.Label>
               <Form.Control input type='number'
                 name='price'
-                ref={register({ required: 'Field is required', min: { value: 0.1, message: 'Price should be more than 0' } })}
+                ref={register({ required: 'Field is required' })}
               />
             </Form.Group>
             {errors.price && <WarningAlert errors={errors.price.message} />}

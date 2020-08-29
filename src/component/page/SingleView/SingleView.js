@@ -93,8 +93,13 @@ function SingleView(props) {
                         <LoadingScreen />
                     </Container> 
                     :
+                    <div>
+
+                    <Button variant='outline-dark' className='mt-2 ml-2'>
+                        <a href='/dashboard' style={{color:'black', textDecoration:'none'}}>Back</a>
+                    </Button>
+                    
                     <Container style={{height:'100%'}}>
- 
                         <div className='d-flex justify-content-center mt-5 mb-3'>
                             <Card style={{ width: '18rem' }}>
                             <Card.Img variant="top" src={userItem.img} style={{width: '100%', height: '268px'}}/>
@@ -109,7 +114,7 @@ function SingleView(props) {
                             </ListGroup>
                             </Card>
                         </div>
-                            <Button variant="dark" className='mb-4' onClick={handleClick}>
+                            <Button variant="outline-dark" className='mb-2' onClick={handleClick}>
                                 {show ? 'Show' : 'Hide'}
                             </Button>
                         <div style={{ display: show ? 'none' : '' }}>
@@ -153,6 +158,7 @@ function SingleView(props) {
                     </div>
                 }   
                 </Container>
+                </div>
                 }   
                     
                 <Footer />

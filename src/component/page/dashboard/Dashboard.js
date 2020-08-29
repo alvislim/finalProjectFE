@@ -77,6 +77,7 @@ function Dashboard() {
         setUserItem(getItemData.data.payload)
         setIsLoading(false)
         setSuccessPost(response.data.message)
+        setShow(false)
       } else {
         setIsLoading(false)
         seterrorPost('We aplogized, we are currently having some issues with our server')
@@ -114,7 +115,7 @@ function Dashboard() {
   }
 
   return (
-    <div style={{height:'100vh'}}>
+    <div style={{height:'100%'}}>
       <NavigationBar loginFlag={loginFlag} />
         <div style={{height:'100%'}}>
 
@@ -128,7 +129,7 @@ function Dashboard() {
           {errorPost !== '' && <WarningAlert errors={errorPost} />}
 
           <div className={styles.box}>
-            <Button variant="dark" className='mx-auto' onClick={handleClick}>
+            <Button variant="outline-dark" className='mx-auto' onClick={handleClick}>
               {show ? 'hide' : 'Add products to track'}
             </Button>
           </div>
@@ -172,22 +173,27 @@ function Dashboard() {
         </Card>
       </Container>
       
-        <div>
-            {userItem!==[] && 
-            <div className={styles.cards}>
-            {searchResults.map((items,i) => {
-                if(items.desiredPrice <= items.price) {
-                    return (
-                        <Cards payload={items} key={i} handleDelete={handleDelete} handleNavigate={handleNavigate} priceMet={true} />
-                    )
-                } else {
-                    return (
-                        <Cards payload={items} key={i} handleDelete={handleDelete} handleNavigate={handleNavigate} />
-                    )
-                }
 
-            })}
-            </div>
+        <div>
+            {userItem == 0 ? 
+              <Container className='text-center mt-5' style={{height:'100vh'}}>
+                <Card.Subtitle>Please click on the above Button to start TRACKING now!</Card.Subtitle>
+              </Container>
+                :
+              <div className={styles.cards}>
+              {searchResults.map((items,i) => {
+                  if(items.desiredPrice <= items.price) {
+                      return (
+                          <Cards payload={items} key={i} handleDelete={handleDelete} handleNavigate={handleNavigate} priceMet={true} />
+                      )
+                  } else {
+                      return (
+                          <Cards payload={items} key={i} handleDelete={handleDelete} handleNavigate={handleNavigate} />
+                      )
+                  }
+
+              })}
+              </div>
             }
         </div>
     </div>

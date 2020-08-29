@@ -6,7 +6,7 @@ import styles                      from './styles.module.css'
 function Cards(props) {
     return (
         <div className={styles.box}>
-        <Card style={{ width: '18rem', height:'100'}} className={styles.leading}>
+        <Card style={{ width: '18rem', height:'100%'}} className={styles.leading}>
              <Card.Img variant="top" src={props.payload.img} style={{width: '100%', height: '268px'}}/>
        
             

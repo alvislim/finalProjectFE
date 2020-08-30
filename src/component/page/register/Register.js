@@ -9,23 +9,28 @@ import WarningAlert                      from '../../general/WarningAlert';
 import { useHistory }                    from "react-router-dom";
 import NavigationBar                     from '../../general/Navbar';
 import Footer                            from '../../general/Footer';
-
+import LoadingScreen                     from '../../general/LoadingScreen';
 
 function Register() {
   const { register, handleSubmit, errors } = useForm();
   const [passwordMismatch, setpasswordMismatch] = useState('');
   const [serverError, setserverError] = useState('')
+  const [isLoading, setIsLoading] = useState(false);
 
   let history = useHistory();
 
   const onSubmit = async (data, e) => {
     try {
+      setIsLoading(true)
       e.preventDefault()
       if (data.password !== data.password2) {
         setpasswordMismatch('Password and Current Password do not match')
       } else {
         const response = await axios.post(`${url}/register`, data);
-        if (response.data.success) history.push('/login')
+        if (response.data.success) {
+          setIsLoading(false)
+          history.push('/login')
+        }
         else setserverError(response.data.message)
       }
     } catch (err) {
@@ -36,6 +41,12 @@ function Register() {
   return (
     <div>
       <NavigationBar />
+      {
+        isLoading ? 
+          <div style={{height:'100vh'}} className='d-flex justify-content-center mt-5'>
+            <LoadingScreen/>
+          </div>
+        :
       <Container className='mt-5 text-center mb-5' style={{height:'100vh'}}>
         <Card body>
           <Form onSubmit={handleSubmit(onSubmit)}>
@@ -77,6 +88,7 @@ function Register() {
           </Form>
         </Card>
       </Container>
+      }
       <Footer />
     </div>
   )

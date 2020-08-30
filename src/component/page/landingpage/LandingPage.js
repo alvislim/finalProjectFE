@@ -1,7 +1,7 @@
 import React                              from 'react';
 import Footer                             from '../../general/Footer';
 import NavigationBar                      from '../../general/Navbar';
-import { Container, Button, Card }  from 'react-bootstrap';
+import { Button, Card }  from 'react-bootstrap';
 
 function LandingPage() {
     return (

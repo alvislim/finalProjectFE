@@ -116,7 +116,7 @@ function Dashboard() {
 
   return (
     <div style={{height:'100vh'}}>
-      <NavigationBar loginFlag={loginFlag} />
+      <NavigationBar loginFlag={loginFlag} name={userData.name}/>
 
       <div className='d-flex justify-content-center mt-5 mb-3'>
         <Form>

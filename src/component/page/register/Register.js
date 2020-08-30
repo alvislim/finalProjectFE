@@ -73,7 +73,7 @@ function Register() {
             {errors.password2 && <WarningAlert errors={errors.password2.message} />}
 
             <Button input type='submit' variant="dark">Submit</Button>
-            <p className='mt-3'>Already have an account? <a href='/login'>Link</a></p>
+            <p className='mt-3'>Already have an account? Click<a href='/login'> Here</a></p>
           </Form>
         </Card>
       </Container>

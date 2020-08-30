@@ -56,7 +56,7 @@ function Login() {
             {errors.password && <WarningAlert errors={errors.password.message} />}
 
             <Button input type='submit' variant="dark">Submit</Button>
-            <p className='mt-3'>Don't have an account? <a href='/register'>Link</a></p>
+            <p className='mt-3'>Don't have an account yet? Click<a href='/register'> Here</a></p>
           </Form>
         </Card>
       </Container>

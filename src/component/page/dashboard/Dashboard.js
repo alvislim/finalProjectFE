@@ -135,7 +135,7 @@ function Dashboard() {
 
       {isLoading ?
 
-      <div style={{height:'100vh'}}>
+      <div style={{height:'100vh'}} className='d-flex justify-content-center'>
         <LoadingScreen/>
       </div>
 

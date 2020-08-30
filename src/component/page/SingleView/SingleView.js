@@ -91,7 +91,9 @@ function SingleView(props) {
             <NavigationBar loginFlag={loginFlag}/>
                 {isLoading ?
                     <Container className='mt-5' style={{height:'100vh'}}>
-                        <LoadingScreen />
+                        <div className='d-flex justify-content-center'>
+                         <LoadingScreen />
+                        </div>
                     </Container> 
                     :
                     <div>

@@ -44,6 +44,7 @@ function Dashboard() {
         } else history.push('/login')
       } catch (err) {
         console.log(err)
+        history.push('/login')
       }
     }
     verifyUserAuthenticate()

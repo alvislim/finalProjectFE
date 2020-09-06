@@ -1,13 +1,36 @@
 import Footer                             from '../../general/Footer';
 import NavigationBar                      from '../../general/Navbar';
-import React                              from 'react';
+import React, { useEffect, useState }     from 'react';
 import { withRouter }                     from "react-router-dom";
-import { Form, Button, Card, Container }  from 'react-bootstrap';
+import { Container }                      from 'react-bootstrap';
+import { useHistory }                     from "react-router-dom";
+import url                                from '../../../url';
+import api                                from '../../../api'
 
 function About() {
+
+    const [loginFlag, setLoginFlag] = useState(false);
+
+    let history = useHistory();
+
+    useEffect(() => {
+        const verifyUserAuthenticate = async () => {
+          try {
+            let response = await api.verifyUser()
+            if (response.data) {
+              setLoginFlag(true)
+            } else history.push('/login')
+          } catch (err) {
+            console.log(err)
+            history.push('/login')
+          }
+        }
+        verifyUserAuthenticate()
+      }, [])
+
     return(
         <React.Fragment>
-            <NavigationBar />
+            <NavigationBar loginFlag={loginFlag} />
             <div style={{height:'100vh'}}>
             
             <Container className='text-center mt-5 mb-5'>

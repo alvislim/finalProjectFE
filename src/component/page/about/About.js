@@ -17,12 +17,9 @@ function About() {
         const verifyUserAuthenticate = async () => {
           try {
             let response = await api.verifyUser()
-            if (response.data) {
-              setLoginFlag(true)
-            } else history.push('/login')
+            if (response.data) setLoginFlag(true)
           } catch (err) {
             console.log(err)
-            history.push('/login')
           }
         }
         verifyUserAuthenticate()

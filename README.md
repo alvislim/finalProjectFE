@@ -1,4 +1,4 @@
-# Rewards Tracker
+# To buy or not to buy
 
 ## Table of Content
 - [Project Demo](#Project-Demo)

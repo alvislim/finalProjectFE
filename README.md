@@ -1,68 +1,120 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Rewards Tracker
 
-## Available Scripts
+## Table of Content
+- [Project Demo](#Project-Demo)
+- [Application MVP](#Application-MVP)
+- [Project Scope](#Project-Scope)
+- [Dependencies](#Dependencies)
+- [User Stories](#User-Stories)
 
-In the project directory, you can run:
+## Project Demo 
+https://buynowor.herokuapp.com/
 
-### `npm start`
+## Application MVP
+- A webscraping web APP where user can input the desired URL and price, and server will send an email to the user when the product price indicator by the user meets the user desired price 
+- Chart to analyze the changes of the prices, automation feature to fetch relevant keyword from other websites (Daily)
+- Build based on the **MVC** file structure: Models, Views, Controllers
+- Deployed online via **Heroku**
+- MERN Stack
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Project Scope
+- User authentication via passport local strategy
+- Protected routes in front end
+- Web automation process
+- Set up cron jobs and to trigger email when certain conditions are met
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `npm test`
+## Dependencies
+#### 1. BootStrap - CSS framework
+#### 2. Axios - to make API calls to backend
+#### 3. MomentJS - Wrapper to handle Date object
+#### 4. Bcrypt - Hashed passwords in database
+#### 5. Cheerio - Implementation of Jquery in server
+#### 6. Cors - To support secure cross-origin request from front end to back end
+#### 7. Node-cron -  Jobs schelduler on the server
+#### 8. PassportJS - To handle authenticate requests
+#### 9. Puppeteer - A high-level API to control headless Chrome or Chromium or interact with the DevTools protocol.
+#### 10. Mongoose - Database for application
+#### 11. FuseJs - a lightweight JavaScript search library that supports fuzzy search
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## User Stories
+# US.1
+**As a** user,
+**I want** to have a pleasant looking homepage, with description of what the website is about
+### Acceptance Criteria
+1. A NavBar with
+- login / logout CTA
+- homepage redirection CTA
+2. A Body with
+- Introduction of the website with a login and logout CTA
+- A section to describe what the website is about
+3. A universal Footer
+### Dependencies
+- Bootstrap for the CSS framework
 
-### `npm run build`
+# US.2
+**As a** user,
+**I want** to be able to sign up / login in
+### Acceptance Criteria
+- when click on sign up, user will be able to navigate to register page
+- when user is at the registration page, user will be able to onboard successfully
+- When click on login, user will be navigate to login page
+- When user is at login page, user will be able to login successfuly
+- In login page, user will be able to either onboard via a manual sign up process
+### Dependencies
+- PassportJS - authentication layer
+- Axios - for making HTTP request
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# US.3
+**As a** user,
+**I want** to be able to add a product to track the price
+### Acceptance Criteria
+1. A form with the below parameters
+- Name of Product
+- URL
+- Price
+- Submit CTA
+2. To display a success / error toast based on server response <success: true / false>
+3. User will be able to view the added items in the dashboard itself with the below parameters
+- Product image which is retrived from the form URL
+- Buy / item link CTA based on the condition if the desired price <= product price
+- Product Name which is retrieved from the form Name of Product
+- Product current price which is retrived from the form URL
+- Desired Price is which retrieved from the form Price
+- a Delete CTA
+- View single product CTA
+### Dependencies
+- Axios - for making HTTP request to server
+- React-hook-form
+- Puppeteer and cheerios for the automation process the fetch the requried details from the given URL
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+# US.4
+**As a** user,
+**I want** to be able to view more information on the single product view page
+### Acceptance Criteria
+- A back button CTA to redirect user back to dashboard
+- Description of the viewed product with IMG, Product name, Desired Price and Product current price
+- A chart which will display the daily price of the product retrieved from server by the user input URL
+- Chart to have a Hide / display CTA
+- A table to display a list of relevant products fetched from other website with the user input Product Name with the parameters <Item Name and Item Price>
+- User will be able to search on the table
+- A sortable table 
+### Dependencies
+- Axios - for making HTTP request to server to ensure user is authenticated and for fetching the books data
+- BootstrapTable
+- Puppeteer and cheerios for the automation process the fetch the requried details from the given URL
+- MomentJS
+  
+  # US.5
+**As a** user,
+**I want** to be able to receive an email notification when any of the products Desired Price <= Product Price
+### Acceptance Criteria
+- A cronjob scheduled at 12pm SGT daily to check for the below conditions
+- To retrieve the product latest price from the user given URL
+- If desired Price <= Product Price an email notification will be sent to the user
+### Dependencies
+- Axios - for making HTTP request to server to ensure user is authenticated and for fetching the books data
+- NodeCron
+- Puppeteer and cheerios for the automation process the fetch the requried details from the given URL
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

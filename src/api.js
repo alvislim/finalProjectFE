@@ -1,7 +1,6 @@
 import url from './url';
 import axios from 'axios';
 
-
 const api = {
     verifyUser: async () => {
         try {

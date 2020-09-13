@@ -72,11 +72,11 @@ function Dashboard() {
       setIsLoading(true)
       const email = userData.email
       const response = await axios.post(`${url}/coldstorage`, { ...data, email }, { withCredentials: true })
-      setSuccessPost(response.data.message)
       console.log(response)
       if (response.data.success) {
         let getItemData = await api.getItem(userData)
         setUserItem(getItemData.data.payload)
+        setSuccessPost(response.data.message)
         setIsLoading(false)
         setShow(false)
       } else {

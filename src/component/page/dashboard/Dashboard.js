@@ -26,6 +26,8 @@ function Dashboard() {
   const [loginFlag, setLoginFlag] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState('');
+  const [showAlert, setShowAlert] = useState(true);
+  const [showWarnAlert, setShowWarnAlert] = useState(true);
 
   let history = useHistory();
 
@@ -61,6 +63,7 @@ function Dashboard() {
             setUserItem(getItemData.data.payload)
             setIsLoading(false)
             setSuccessPost(response.data.message)
+            setShowAlert(true)
         }
     } catch (err) {
         console.log(err)
@@ -77,21 +80,32 @@ function Dashboard() {
         let getItemData = await api.getItem(userData)
         setUserItem(getItemData.data.payload)
         setSuccessPost(response.data.message)
+        setShowAlert(true)
         setIsLoading(false)
         setShow(false)
       } else {
         setIsLoading(false)
         seterrorPost('We aplogized, we are currently having some issues with our server')
+        setShowWarnAlert(true)
       }
     } catch (err) {
       console.log(err)
       setIsLoading(false)
       seterrorPost('We aplogized, we are currently having some issues with our server')
+      setShowWarnAlert(true)
     }
   };
 
   const handleClick = async () => {
     setShow(!show)
+  }
+
+  const clickAlert = () => {
+    setShowAlert(!showAlert)
+  }
+
+  const clickWarn = () => {
+    setShowWarnAlert(!showWarnAlert)
   }
 
   const handleNavigate = async (id) => {
@@ -125,8 +139,8 @@ function Dashboard() {
         </Form>
       </div>
 
-          {successPost !== '' && <SuccessAlert success={successPost} />}
-          {errorPost !== '' && <WarningAlert errors={errorPost} />}
+          {successPost && <SuccessAlert success={successPost} clickAlert={clickAlert} showAlert={showAlert} />}
+          {errorPost && <WarningAlert errors={errorPost} clickWarn={clickWarn} showWarnAlert={showWarnAlert}/>}
 
           <div className={styles.box}>
             <Button variant="outline-dark" className='mx-auto' onClick={handleClick}>

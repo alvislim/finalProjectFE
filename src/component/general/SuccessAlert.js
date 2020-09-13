@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Alert }           from 'react-bootstrap';
 
 function SuccessAlert(props) {
-    const [show, setShow] = useState(true);
-    if (show) {
+    // const [show, setShow] = useState(true);
+    if (props.showAlert) {
         return (
             <Alert variant="success" width={20}
-            onClose={() => setShow(false)} dismissible
+            onClose={props.clickAlert} dismissible
             >
               {props.success}
           </Alert>

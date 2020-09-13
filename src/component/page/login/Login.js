@@ -29,7 +29,8 @@ function Login() {
       if (response.data.success) {
         history.push('/dashboard')
         setIsLoading(false)
-      } else if (!response.data.success) {
+      } else {
+        setIsLoading(false)
         setloginErrors(response.data.message)
       }
       

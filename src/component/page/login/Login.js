@@ -26,10 +26,11 @@ function Login() {
       e.preventDefault();
       const response = await axios.post(`${url}/login`, data, { withCredentials: true })
       console.log(response.data)
-      if (!response.data.success) setloginErrors(response.data.message)
-      else {
+      if (response.data.success) {
         history.push('/dashboard')
         setIsLoading(false)
+      } else if (!response.data.success) {
+        setloginErrors(response.data.message)
       }
       
     } catch (err) {

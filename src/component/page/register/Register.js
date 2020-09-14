@@ -16,6 +16,7 @@ function Register() {
   const [passwordMismatch, setpasswordMismatch] = useState('');
   const [serverError, setserverError] = useState('')
   const [isLoading, setIsLoading] = useState(false);
+  const [showWarnAlert, setShowWarnAlert] = useState(true);
 
   let history = useHistory();
 
@@ -25,18 +26,29 @@ function Register() {
       e.preventDefault()
       if (data.password !== data.password2) {
         setpasswordMismatch('Password and Current Password do not match')
+        setShowWarnAlert(true)
+        setIsLoading(false)
       } else {
         const response = await axios.post(`${url}/register`, data);
         if (response.data.success) {
           setIsLoading(false)
           history.push('/login')
         }
-        else setserverError(response.data.message)
+        else {
+          setShowWarnAlert(true)
+          setIsLoading(false)
+          setserverError(response.data.message)
+        } 
       }
     } catch (err) {
       console.log(err)
     }
   };
+
+  const clickWarn = () => {
+    setShowWarnAlert(!showWarnAlert)
+  }
+
 
   return (
     <div>
@@ -51,19 +63,19 @@ function Register() {
         <Card body>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <h1><PersonPlusFill size={60} /> REGISTER</h1>
-            {passwordMismatch !== '' && <WarningAlert errors={passwordMismatch} />}
-            {serverError !== '' && <WarningAlert errors={serverError} />}
+            {passwordMismatch && <WarningAlert errors={passwordMismatch} showWarnAlert={showWarnAlert} clickWarn={clickWarn} />}
+            {serverError && <WarningAlert errors={serverError} showWarnAlert={showWarnAlert} clickWarn={clickWarn}/>}
             <Form.Group className='mt-4'>
               <Form.Label>Name </Form.Label>
               <Form.Control input type='text' name='name' ref={register({ required: 'Field is required' })} />
             </Form.Group>
-            {errors.name && <WarningAlert errors={errors.name.message} />}
+            {errors.name && <WarningAlert errors={errors.name.message} showWarnAlert={showWarnAlert} clickWarn={clickWarn} />}
 
             <Form.Group>
               <Form.Label>Email </Form.Label>
               <Form.Control input type='email' name='email' ref={register({ required: 'Field is required' })} />
             </Form.Group>
-            {errors.email && <WarningAlert errors={errors.email.message} />}
+            {errors.email && <WarningAlert errors={errors.email.message} showWarnAlert={showWarnAlert} clickWarn={clickWarn}/>}
 
             <Form.Group>
               <Form.Label>Password </Form.Label>
@@ -72,7 +84,7 @@ function Register() {
                 ref={register({ required: 'Field is required', minLength: { value: 8, message: 'Min length should be 8 for password' } })}
               />
             </Form.Group>
-            {errors.password && <WarningAlert errors={errors.password.message} />}
+            {errors.password && <WarningAlert errors={errors.password.message} showWarnAlert={showWarnAlert} clickWarn={clickWarn}/>}
 
             <Form.Group>
               <Form.Label>Confirm Password </Form.Label>
@@ -81,7 +93,7 @@ function Register() {
                 ref={register({ required: 'Field is required', minLength: { value: 8, message: 'Min length should be 8 for password' } })}
               />
             </Form.Group>
-            {errors.password2 && <WarningAlert errors={errors.password2.message} />}
+            {errors.password2 && <WarningAlert errors={errors.password2.message} showWarnAlert={showWarnAlert} clickWarn={clickWarn}/>}
 
             <Button input type='submit' variant="dark">Submit</Button>
             <p className='mt-3'>Already have an account? Click<a href='/login'> Here</a></p>

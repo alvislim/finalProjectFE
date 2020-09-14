@@ -17,6 +17,7 @@ function Login() {
   const { register, handleSubmit, errors } = useForm();
   const [loginErrors, setloginErrors] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showWarnAlert, setShowWarnAlert] = useState(true);
 
   let history = useHistory();
 
@@ -30,6 +31,7 @@ function Login() {
         history.push('/dashboard')
         setIsLoading(false)
       } else {
+        setShowWarnAlert(true)
         setIsLoading(false)
         setloginErrors(response.data.message)
       }
@@ -37,6 +39,10 @@ function Login() {
     } catch (err) {
       console.log(err)
     }
+  }
+
+  const clickWarn = () => {
+    setShowWarnAlert(!showWarnAlert)
   }
 
   return (
@@ -52,12 +58,12 @@ function Login() {
           <Card body className={styles.card}>
             <Form onSubmit={handleSubmit(onSubmit)}>
               <h1><PersonCheckFill size={60} /> LOGIN</h1>
-              {loginErrors !== '' && <WarningAlert errors={loginErrors} />}
+              {loginErrors && <WarningAlert errors={loginErrors} showWarnAlert={showWarnAlert} clickWarn={clickWarn}/>}
               <Form.Group className='mt-4'>
                 <Form.Label>Email </Form.Label>
                 <Form.Control input type='email' name='email' ref={register({ required: 'Field is required' })} />
               </Form.Group>
-              {errors.email && <WarningAlert errors={errors.email.message} />}
+              {errors.email && <WarningAlert errors={errors.email.message} showWarnAlert={showWarnAlert} clickWarn={clickWarn}/>}
 
               <Form.Group>
                 <Form.Label>Password </Form.Label>
@@ -66,7 +72,7 @@ function Login() {
                   ref={register({ required: 'Field is required', minLength: { value: 8, message: 'Min length should be 8 for password' } })}
                 />
               </Form.Group>
-              {errors.password && <WarningAlert errors={errors.password.message} />}
+              {errors.password && <WarningAlert errors={errors.password.message} showWarnAlert={showWarnAlert} clickWarn={clickWarn}/>}
 
               <Button input type='submit' variant="dark">Submit</Button>
               <p className='mt-3'>Don't have an account yet? Click<a href='/register'> Here</a></p>

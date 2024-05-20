@@ -22,7 +22,7 @@ function NavigationBar(props) {
       <Navbar.Toggle aria-controls='responsive-navbar-nav' />
       <Navbar.Collapse id='responsive-navbar-nav'>
         <Nav className='mt-1 mr-auto'>
-          <Nav.Link href={props.loginFlag === true ? "#/dashboard" : "/"}>
+          <Nav.Link href={props.loginFlag === true ? "#/dashboard" : "#/"}>
             Home
           </Nav.Link>
           <Nav.Link href='#/about'>About Us</Nav.Link>

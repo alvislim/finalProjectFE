@@ -164,7 +164,8 @@ function Register() {
                 Submit
               </Button>
               <p className='mt-3'>
-                Already have an account? Click<a href='#/login'> Here</a>
+                Already have an account? Click
+                <a href='#/login'> Here</a>
               </p>
             </Form>
           </Card>

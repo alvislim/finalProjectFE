@@ -114,7 +114,8 @@ function Login() {
                 Submit
               </Button>
               <p className='mt-3'>
-                Don't have an account yet? Click<a href='#/register'> Here</a>
+                Don't have an account yet? Click
+                <a href='#/register'> Here</a>
               </p>
             </Form>
           </Card>

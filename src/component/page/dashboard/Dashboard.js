@@ -73,11 +73,10 @@ function Dashboard() {
     try {
       setIsLoading(true);
       const email = userData.email;
-      const response = await axios.post(
-        `${url}/coldstorage`,
-        { ...data, email },
-        { withCredentials: true }
-      );
+      const response = await axios.post(`${url}/coldstorage`, {
+        ...data,
+        email,
+      });
       console.log(response);
       if (response.data.success) {
         let getItemData = await api.getItem(userData);

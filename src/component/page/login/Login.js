@@ -24,9 +24,7 @@ function Login() {
     try {
       setIsLoading(true);
       e.preventDefault();
-      const response = await axios.post(`${url}/login`, data, {
-        withCredentials: true,
-      });
+      const response = await axios.post(`${url}/login`, data);
       console.log(response.data);
       if (response.data.success) {
         history.push("/dashboard");

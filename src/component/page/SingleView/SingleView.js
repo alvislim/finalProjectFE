@@ -13,7 +13,9 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import LoadingScreen from "../../general/LoadingScreen";
 import Footer from "../../general/Footer";
 import NavigationBar from "../../general/Navbar";
-import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
+import ToolkitProvider, {
+  Search,
+} from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit";
 import { Line } from "react-chartjs-2";
 import * as moment from "moment";
 
